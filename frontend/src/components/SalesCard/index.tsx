@@ -1,7 +1,15 @@
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 import { NotificationButton } from "../NotificationButton";
 import './styles.css';
 
 export const SalesCard = () => {
+
+  const [minDate, setMinDate] = useState(new Date(new Date().setDate(new Date().getDate() - 365))); // Hoje - 365 dias?
+  const [maxDate, setMaxDate] = useState(new Date());
+
   return (
     <div className="dgmeta-sales-card">
 
@@ -11,10 +19,20 @@ export const SalesCard = () => {
 
       <div>
         <div className="dgmeta-sales-card-input-container">
-          <input className="dgmeta-sales-card-input" type="date" value="2022-07-01" />
+          <DatePicker
+            selected={minDate}
+            onChange={(date: Date) => setMinDate(date)}
+            className="dgmeta-sales-card-input"
+            dateFormat="dd/MM/yyyy"
+          />
         </div>
         <div className="dgmeta-sales-card-input-container">
-          <input className="dgmeta-sales-card-input" type="date" value="2022-07-31" />
+          <DatePicker
+            selected={maxDate}
+            onChange={(date: Date) => setMaxDate(date)}
+            className="dgmeta-sales-card-input"
+            dateFormat="dd/MM/yyyy"
+          />
         </div>
       </div>
 
@@ -33,7 +51,7 @@ export const SalesCard = () => {
           </thead>
           <tbody>
 
-          <tr>
+            <tr>
               <td className="dgmeta-sales-card-show-992">#123</td>
               <td className="dgmeta-sales-card-show-576">09/07/2022</td>
               <td>Fulano de tal</td>
